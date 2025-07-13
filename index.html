@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby's Boutique - Elegancia y Estilo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #1a1a1a;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1a1a1a;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            transition: transform 0.3s ease;
+            padding: 0.5rem;
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #1a1a1a;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 248, 0.9));
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,0,0,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            font-weight: 100;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #666;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: #1a1a1a;
+            padding: 1rem 2.5rem;
+            border: 2px solid #1a1a1a;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            background: #1a1a1a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #1a1a1a;
+            font-weight: 100;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f8f8f8 0%, #eeeeee 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #ccc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image::before {
+            transform: translateX(100%);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .add-to-cart {
+            background: transparent;
+            color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .add-to-cart:hover {
+            background: #1a1a1a;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Baby's Boutique</div>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#products">Productos</a></li>
+                <li><a href="#about">Nosotros</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛍️
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Elegancia Atemporal</h1>
+            <p>Descubre nuestra exclusiva colección de bolsas y blusas para la mujer moderna</p>
+            <a href="#products" class="cta-button">Explorar Colección</a>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Nuestra Colección</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">👜</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Bolsa Minimalista</h3>
+                        <p class="product-price">$1,250</p>
+                        <p class="product-description">Bolsa de cuero premium con líneas limpias y diseño atemporal. Perfecta para el día a día con un toque de sofisticación.</p>
+                        <button class="add-to-cart" onclick="addToCart('Bolsa Minimalista', 1250)">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👚</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Blusa Ejecutiva</h3>
+                        <p class="product-price">$850</p>
+                        <p class="product-description">Blusa de seda con corte clásico y acabados impecables. Ideal para el ambiente profesional moderno.</p>
+                        <button class="add-to-cart" onclick="addToCart('Blusa Ejecutiva', 850)">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💼</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Portafolio Elegante</h3>
+                        <p class="product-price">$1,850</p>
+                        <p class="product-description">Portafolio de cuero genuino con compartimentos organizados. Funcionalidad y estilo en perfecta armonía.</p>
+                        <button class="add-to-cart" onclick="addToCart('Portafolio Elegante', 1850)">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👕</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Camisa Estructura</h3>
+                        <p class="product-price">$950</p>
+                        <p class="product-description">Camisa con corte arquitectónico y detalles contemporáneos. Versatilidad para cualquier ocasión.</p>
+                        <button class="add-to-cart" onclick="addToCart('Camisa Estructura', 950)">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👛</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Clutch Moderno</h3>
+                        <p class="product-price">$1,100</p>
+                        <p class="product-description">Clutch de diseño contemporáneo con acabados premium. El accesorio perfecto para eventos especiales.</p>
+                        <button class="add-to-cart" onclick="addToCart('Clutch Moderno', 1100)">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖤</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Blusa Conceptual</h3>
+                        <p class="product-price">$780</p>
+                        <p class="product-description">Blusa con diseño vanguardista y corte asimétrico. Para la mujer que busca expresar su individualidad.</p>
+                        <button class="add-to-cart" onclick="addToCart('Blusa Conceptual', 780)">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Baby's Boutique</h3>
+                    <p>Redefiniendo la elegancia femenina a través de piezas cuidadosamente seleccionadas que trascienden las tendencias.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>info@babysboutique.com</p>
+                    <p>+52 555 123 4567</p>
+                    <p>Ciudad de México, México</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <p><a href="#">Instagram</a></p>
+                    <p><a href="#">Facebook</a></p>
+                    <p><a href="#">WhatsApp</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Baby's Boutique. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        let cartCount = 0;
+
+        function addToCart(productName, price) {
+            cart.push({
+                name: productName,
+                price: price
+            });
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+            
+            // Animación del botón
+            const button = event.target;
+            button.style.transform = 'translateY(-2px)';
+            button.textContent = 'Agregado';
+            button.style.background = '#1a1a1a';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                button.style.transform = 'translateY(0)';
+                button.textContent = 'Agregar al Carrito';
+                button.style.background = 'transparent';
+                button.style.color = '#1a1a1a';
+            }, 1200);
+        }
+
+        function toggleCart() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            let cartContent = 'Carrito de Compras:\n\n';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                cartContent += `${index + 1}. ${item.name} - $${item.price}\n`;
+                total += item.price;
+            });
+            
+            cartContent += `\nTotal: $${total}`;
+            alert(cartContent);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.borderBottom = '1px solid rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // Product cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
